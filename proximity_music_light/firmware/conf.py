@@ -11,10 +11,10 @@
 # ======================================== 全局变量 ============================================
 
 # 是否在 boot 或 main 启动时自动开始演示（True: 自动启动）
-AUTO_START = False
+AUTO_START = True
 
 # 是否输出调试消息到终端
-ENABLE_DEBUG = False
+ENABLE_DEBUG = True
 
 # I2C上传感器外设的初始化的重试常量
 I2C_INIT_MAX_ATTEMPTS = 3

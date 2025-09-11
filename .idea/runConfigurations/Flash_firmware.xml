@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Flash firmware" type="MicroPythonConfigurationType" factoryName="MicroPython" singleton="false" nameIsGenerated="true" path="$PROJECT_DIR$/proximity_music_light/firmware" runReplOnSuccess="no">
+    <module name="GraftPort_MicroPython_Labs" />
+    <method v="2">
+      <option name="MicroPython.StopREPL.Before.Run" enabled="true" />
+    </method>
+  </configuration>
+</component>
