@@ -1,122 +1,138 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>依赖可视化：dependencies.html</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 16px; }
-    .svg-wrap { border: 1px solid #ddd; overflow: auto; padding: 16px; background: #fafafa; }
-    .legend { margin-top: 12px; font-size: 14px; color: #444; }
-    .group-legend { font-size: 14px; color: #444; }
-  </style>
-</head>
-<body>
-  <h2>依赖可视化：dependencies.html</h2>
-  
-  
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <title>依赖可视化：dependencies.md</title>
+            <style>
+                body { 
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+                    padding: 16px; 
+                }
+                .svg-wrap { 
+                    border: 1px solid #ddd; 
+                    overflow: auto; 
+                    padding: 16px; 
+                    background: #fafafa; 
+                }
+                .legend { 
+                    margin-top: 12px; 
+                    font-size: 14px; 
+                    color: #444; 
+                }
+                .group-legend { 
+                    font-size: 14px; 
+                    color: #444; 
+                }
+            </style>
+        </head>
+        <body>
+            <h2>依赖可视化：dependencies.md</h2>
+            
+            
         <div class="group-legend" style="margin: 12px 0; padding: 8px; background: #f0f0f0; border-radius: 4px;">
-          <p style="margin: 0 0 8px 0; font-weight: bold;">模块分组说明：</p>
-          <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
-            <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #2563eb; background: #eff6ff;"></span>引导核心：boot、main.py</li>
-            <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #7c3aed; background: #f5f3ff;"></span>板级配置：board、conf</li>
-            <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #16a34a; background: #ecfdf5;"></span>任务层：tasks/ 下所有任务文件</li>
-            <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #ea580c; background: #fff7ed;"></span>驱动层：drivers/ 下所有驱动包</li>
-            <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #0891b2; background: #ecfeff;"></span>公共库：libs/ 下所有工具库（logger/network 等）</li>
-          </ul>
+            <p style="margin: 0 0 8px 0; font-weight: bold;">模块分组说明：</p>
+            <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #2563eb; background: #eff6ff;"></span>引导核心：boot、main.py</li>
+                <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #7c3aed; background: #f5f3ff;"></span>板级配置：board、conf</li>
+                <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #16a34a; background: #ecfdf5;"></span>任务层：tasks/ 下所有任务文件</li>
+                <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #ea580c; background: #fff7ed;"></span>驱动层：drivers/ 下所有驱动包</li>
+                <li><span style="display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid #0891b2; background: #ecfeff;"></span>公共库：libs/ 下所有工具库（logger/network 等）</li>
+            </ul>
         </div>
-        
-  <div class="svg-wrap"><svg width="2610" height="1420" viewBox="0 0 2610 1420" xmlns="http://www.w3.org/2000/svg" role="img">
+            <div class="svg-wrap"><svg width="2610" height="1420" viewBox="0 0 2610 1420" xmlns="http://www.w3.org/2000/svg" role="img">
 <defs>
             <marker id="arrow" markerWidth="18" markerHeight="18" refX="16" refY="9" orient="auto">
                 <path d="M0,0 L18,9 L0,18 z" fill="#555" />
             </marker>
         </defs>
-<path d="M 480.0,50.0 C 465.0,186.0 345.0,254.0 330.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 930.0,50.0 C 937.5,322.0 997.5,458.0 1005.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 930.0,50.0 C 915.0,186.0 795.0,254.0 780.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1080.0,70.0 C 1080.0,190.0 1080.0,250.0 1080.0,370.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 180.0,70.0 C 180.0,190.0 180.0,250.0 180.0,370.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 330.0,50.0 C 412.5,458.0 1072.5,662.0 1155.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 780.0,50.0 C 817.5,458.0 1117.5,662.0 1155.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 780.0,50.0 C 1380.0,84.0 1680.0,356.0 2280.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
 <path d="M 1005.0,730.0 C 1020.0,866.0 1140.0,934.0 1155.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 780.0,390.0 C 930.0,424.0 1005.0,696.0 1155.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1230.0,390.0 C 1380.0,424.0 1455.0,696.0 1605.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1530.0,70.0 C 1530.0,190.0 1530.0,250.0 1530.0,370.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1680.0,390.0 C 1830.0,424.0 1905.0,696.0 2055.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1830.0,50.0 C 1230.0,84.0 930.0,356.0 330.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1830.0,50.0 C 1320.0,118.0 1065.0,662.0 555.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1830.0,50.0 C 1500.0,118.0 1335.0,662.0 1005.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1830.0,50.0 C 1410.0,84.0 1200.0,356.0 780.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1830.0,50.0 C 1590.0,84.0 1470.0,356.0 1230.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 780.0,390.0 C 772.5,526.0 712.5,594.0 705.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 780.0,390.0 C 817.5,662.0 1117.5,798.0 1155.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 780.0,390.0 C 1110.0,424.0 1275.0,696.0 1605.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 930.0,50.0 C 915.0,186.0 795.0,254.0 780.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 930.0,390.0 C 937.5,526.0 997.5,594.0 1005.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1230.0,390.0 C 1222.5,662.0 1162.5,798.0 1155.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1380.0,50.0 C 1365.0,186.0 1245.0,254.0 1230.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1380.0,390.0 C 1230.0,424.0 1155.0,696.0 1005.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1380.0,390.0 C 1387.5,662.0 1447.5,798.0 1455.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
 <path d="M 1830.0,50.0 C 1815.0,186.0 1695.0,254.0 1680.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1980.0,70.0 C 1980.0,190.0 1980.0,250.0 1980.0,370.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 2130.0,50.0 C 2145.0,186.0 2265.0,254.0 2280.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 1830.0,390.0 C 1320.0,424.0 1065.0,696.0 555.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<path d="M 2280.0,390.0 C 1770.0,424.0 1515.0,696.0 1005.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
-<g class="node" data-id="boot">
-<rect x="480.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
-<text x="490.0" y="57.0" font-family="sans-serif" font-size="14">boot</text>
-</g>
-<g class="node" data-id="drivers/__init__">
-<rect x="930.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="940.0" y="57.0" font-family="sans-serif" font-size="14">drivers/__init__</text>
-</g>
-<g class="node" data-id="libs/__init__">
-<rect x="1380.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" />
-<text x="1390.0" y="57.0" font-family="sans-serif" font-size="14">libs/__init__</text>
-</g>
-<g class="node" data-id="main">
-<rect x="1830.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
-<text x="1840.0" y="57.0" font-family="sans-serif" font-size="14">main</text>
-</g>
+<path d="M 1305.0,750.0 C 1305.0,870.0 1305.0,930.0 1305.0,1050.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1830.0,390.0 C 1680.0,424.0 1605.0,696.0 1455.0,730.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1830.0,390.0 C 1792.5,662.0 1492.5,798.0 1455.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 2280.0,50.0 C 2265.0,186.0 2145.0,254.0 2130.0,390.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 2280.0,390.0 C 1950.0,458.0 1785.0,1002.0 1455.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
+<path d="M 1605.0,730.0 C 1590.0,866.0 1470.0,934.0 1455.0,1070.0" fill="none" stroke="#555" stroke-width="2.0" marker-end="url(#arrow)" />
 <g class="node" data-id="board">
-<rect x="30.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" />
-<text x="40.0" y="397.0" font-family="sans-serif" font-size="14">board</text>
-</g>
-<g class="node" data-id="drivers/piranha_led_driver/__init__">
-<rect x="480.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="490.0" y="397.0" font-family="sans-serif" font-size="14">drivers/piranha_led_driver/__init__</text>
-</g>
-<g class="node" data-id="drivers/rcwl9623_driver/__init__">
-<rect x="930.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="940.0" y="397.0" font-family="sans-serif" font-size="14">drivers/rcwl9623_driver/__init__</text>
-</g>
-<g class="node" data-id="libs/scheduler/__init__">
-<rect x="1380.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" />
-<text x="1390.0" y="397.0" font-family="sans-serif" font-size="14">libs/scheduler/__init__</text>
-</g>
-<g class="node" data-id="tasks/maintenance">
-<rect x="1830.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5" />
-<text x="1840.0" y="397.0" font-family="sans-serif" font-size="14">tasks/maintenance</text>
-</g>
-<g class="node" data-id="tasks/sensor_task">
-<rect x="2280.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5" />
-<text x="2290.0" y="397.0" font-family="sans-serif" font-size="14">tasks/sensor_task</text>
+<rect x="30.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" />
+<text x="40.0" y="57.0" font-family="sans-serif" font-size="14">board</text>
 </g>
 <g class="node" data-id="conf">
-<rect x="255.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" />
-<text x="265.0" y="737.0" font-family="sans-serif" font-size="14">conf</text>
-</g>
-<g class="node" data-id="drivers/passive_buzzer_driver/__init__">
-<rect x="705.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="715.0" y="737.0" font-family="sans-serif" font-size="14">drivers/passive_buzzer_driver/__init__</text>
-</g>
-<g class="node" data-id="drivers/piranha_led_driver/code/piranha_led">
-<rect x="1155.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="1165.0" y="737.0" font-family="sans-serif" font-size="14">drivers/piranha_led_driver/code/piranha_led</text>
-</g>
-<g class="node" data-id="drivers/rcwl9623_driver/code/rcwl9623">
-<rect x="1605.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="1615.0" y="737.0" font-family="sans-serif" font-size="14">drivers/rcwl9623_driver/code/rcwl9623</text>
-</g>
-<g class="node" data-id="libs/scheduler/scheduler">
-<rect x="2055.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" />
-<text x="2065.0" y="737.0" font-family="sans-serif" font-size="14">libs/scheduler/scheduler</text>
+<rect x="480.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" />
+<text x="490.0" y="57.0" font-family="sans-serif" font-size="14">conf</text>
 </g>
 <g class="node" data-id="drivers/passive_buzzer_driver/code/buzzer">
-<rect x="1155.0" y="1050.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
-<text x="1165.0" y="1077.0" font-family="sans-serif" font-size="14">drivers/passive_buzzer_driver/code/buzzer</text>
+<rect x="930.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="940.0" y="57.0" font-family="sans-serif" font-size="14">drivers/passive_buzzer_driver/code/buzzer</text>
+</g>
+<g class="node" data-id="drivers/piranha_led_driver/code/piranha_led">
+<rect x="1380.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="1390.0" y="57.0" font-family="sans-serif" font-size="14">drivers/piranha_led_driver/code/piranha_led</text>
+</g>
+<g class="node" data-id="drivers/rcwl9623_driver/code/rcwl9623">
+<rect x="1830.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="1840.0" y="57.0" font-family="sans-serif" font-size="14">drivers/rcwl9623_driver/code/rcwl9623</text>
+</g>
+<g class="node" data-id="libs/scheduler/scheduler">
+<rect x="2280.0" y="30.0" width="300" height="40" rx="6" ry="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" />
+<text x="2290.0" y="57.0" font-family="sans-serif" font-size="14">libs/scheduler/scheduler</text>
+</g>
+<g class="node" data-id="boot">
+<rect x="30.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
+<text x="40.0" y="397.0" font-family="sans-serif" font-size="14">boot</text>
+</g>
+<g class="node" data-id="drivers/passive_buzzer_driver/__init__">
+<rect x="480.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="490.0" y="397.0" font-family="sans-serif" font-size="14">drivers/passive_buzzer_driver/__init__</text>
+</g>
+<g class="node" data-id="drivers/piranha_led_driver/__init__">
+<rect x="930.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="940.0" y="397.0" font-family="sans-serif" font-size="14">drivers/piranha_led_driver/__init__</text>
+</g>
+<g class="node" data-id="drivers/rcwl9623_driver/__init__">
+<rect x="1380.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="1390.0" y="397.0" font-family="sans-serif" font-size="14">drivers/rcwl9623_driver/__init__</text>
+</g>
+<g class="node" data-id="libs/scheduler/__init__">
+<rect x="1830.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" />
+<text x="1840.0" y="397.0" font-family="sans-serif" font-size="14">libs/scheduler/__init__</text>
+</g>
+<g class="node" data-id="tasks/maintenance">
+<rect x="2280.0" y="370.0" width="300" height="40" rx="6" ry="6" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5" />
+<text x="2290.0" y="397.0" font-family="sans-serif" font-size="14">tasks/maintenance</text>
+</g>
+<g class="node" data-id="drivers/__init__">
+<rect x="705.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="715.0" y="737.0" font-family="sans-serif" font-size="14">drivers/__init__</text>
+</g>
+<g class="node" data-id="libs/__init__">
+<rect x="1155.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" />
+<text x="1165.0" y="737.0" font-family="sans-serif" font-size="14">libs/__init__</text>
+</g>
+<g class="node" data-id="tasks/sensor_task">
+<rect x="1605.0" y="710.0" width="300" height="40" rx="6" ry="6" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5" />
+<text x="1615.0" y="737.0" font-family="sans-serif" font-size="14">tasks/sensor_task</text>
+</g>
+<g class="node" data-id="main">
+<rect x="1155.0" y="1050.0" width="300" height="40" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
+<text x="1165.0" y="1077.0" font-family="sans-serif" font-size="14">main</text>
 </g>
 </svg></div>
-  <div class="legend">
-    <p><strong>说明：</strong>节点表示 module_id（相对路径或规范化名），箭头从模块指向其内部依赖。环路节点用红色背景。</p>
-  </div>
-</body>
-</html>
+            <div class="legend">
+                <p><strong>说明：</strong>节点表示 module_id（相对路径或规范化名），箭头从被依赖模块指向依赖它的模块。环路节点用红色背景。</p>
+            </div>
+        </body>
+        </html>
