@@ -1,6 +1,6 @@
 # Python 文件依赖分析报告
 - 根目录：`F:\GraftPort_MicroPython_Labs\proximity_music_light\firmware`  
-- 文件数量：**16**  
+- 文件数量：**17**  
 - 检测到循环依赖：**0**  
 - 强制依赖：若 `drivers/__init__.py`、`libs/__init__.py`、`tasks/__init__.py` 存在，则自动设为 `main.py` 的依赖  
 
@@ -23,7 +23,8 @@
 | `libs/__init__` | `libs` | 1025 | `libs/scheduler/__init__` | - | `main` |
 | `libs/scheduler/__init__` | `libs.scheduler.__init__` | 1275 | `libs/scheduler/scheduler` | - | `libs/__init__`, `main` |
 | `libs/scheduler/scheduler` | `libs.scheduler.scheduler` | 12150 | - | `machine.Timer`, `micropython.const` | `libs/scheduler/__init__` |
-| `main` | `main` | 9105 | `board`, `conf`, `drivers/__init__`, `drivers/passive_buzzer_driver/__init__`, `drivers/piranha_led_driver/__init__`, `drivers/rcwl9623_driver/__init__`, `libs/__init__`, `libs/scheduler/__init__`, `tasks/maintenance`, `tasks/sensor_task` | `machine.I2C`, `machine.Pin`, `machine.Timer`, `time` | - |
+| `main` | `main` | 9105 | `board`, `conf`, `drivers/__init__`, `drivers/passive_buzzer_driver/__init__`, `drivers/piranha_led_driver/__init__`, `drivers/rcwl9623_driver/__init__`, `libs/__init__`, `libs/scheduler/__init__`, `tasks/__init__`, `tasks/maintenance`, `tasks/sensor_task` | `machine.I2C`, `machine.Pin`, `machine.Timer`, `time` | - |
+| `tasks/__init__` | `tasks` | 890 | - | - | `main` |
 | `tasks/maintenance` | `tasks.maintenance` | 4047 | `conf` | `conf`, `gc`, `sys`, `time` | `main` |
 | `tasks/sensor_task` | `tasks.sensor_task` | 10573 | `drivers/passive_buzzer_driver/__init__` | `collections.deque` | `main` |
 
@@ -43,6 +44,7 @@
 | `drivers/rcwl9623_driver/code/rcwl9623` | 1 |
 | `libs/__init__` | 1 |
 | `libs/scheduler/scheduler` | 1 |
+| `tasks/__init__` | 1 |
 | `tasks/maintenance` | 1 |
 | `tasks/sensor_task` | 1 |
 | `boot` | 0 |
