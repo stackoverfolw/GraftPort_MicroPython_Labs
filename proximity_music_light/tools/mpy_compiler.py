@@ -379,7 +379,11 @@ class MPYCompiler:
                 failed_files.append((file_path, str(e)))
                 if self.verbose:
                     print(f"编译失败 {file_path}: {str(e)}")
-
+        # 复制不能编译的文件
+        shutil.copy(f'{self.source_dir}/main.py', f'{self.output_dir}/main.py')
+        shutil.copy(f'{self.source_dir}/boot.py', f'{self.output_dir}/boot.py')
+        Path(f'{self.output_dir}/main.mpy').unlink(missing_ok=True)
+        Path(f'{self.output_dir}/boot.mpy').unlink(missing_ok=True)
         # 输出编译结果摘要
         print("\n" + "=" * 50)
         print(f"编译完成: 成功 {success_count}, 失败 {fail_count}, 总计 {total_files}")

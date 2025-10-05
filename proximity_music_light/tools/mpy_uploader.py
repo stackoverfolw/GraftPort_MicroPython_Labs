@@ -8,7 +8,6 @@
 
 # ======================================== 导入相关模块 =========================================
 
-import os
 import sys
 import subprocess
 import argparse
@@ -38,15 +37,13 @@ class MPYDeployer:
         __init__(source_dir: str = "..\\build\\firmware_mpy", verbose: bool = False) -> None: 初始化部署器，验证源目录并输出基本信息。
         list_available_devices() -> list[dict[str, str]]: 列出系统中所有可用的串口设备，返回包含端口和描述的字典列表。
         select_device() -> str | None: 引导用户选择目标设备，支持手动选择或自动选择第一个设备。
-        deploy_files_to_root() -> bool: 将源目录下所有mpy文件部署到MCU根目录，返回是否全部部署成功。
         deploy_directories_to_root() -> bool: 将源目录下所有子目录部署到MCU根目录，返回是否全部部署成功。
         list_remote_files() -> bool: 列出MCU根目录下的所有文件及目录，返回是否执行成功。
 
     Notes:
         1. 依赖mpremote工具，需确保其已安装并添加到系统环境变量中。
-        2. 仅支持Windows系统，路径处理会自动转换Windows风格路径为MCU兼容的Unix风格路径。
-        3. 部署目录时会使用递归复制（-r参数），确保子目录结构完整同步。
-        4. 所有命令执行设有超时限制（文件30秒，目录60秒），避免无限阻塞。
+        2. 部署目录时会使用递归复制（-r参数），确保子目录结构完整同步。
+        3. 所有命令执行设有超时限制（文件30秒，目录60秒），避免无限阻塞。
 
     ==========================================
 
@@ -67,19 +64,17 @@ class MPYDeployer:
         __init__(source_dir: str = "..\\build\\firmware_mpy", verbose: bool = False) -> None: Initialize the deployer, verify the source directory and output basic information.
         list_available_devices() -> list[dict[str, str]]: List all available serial port devices in the system, return a list of dicts containing port and description.
         select_device() -> str | None: Guide users to select the target device, supporting manual selection or automatic selection of the first device.
-        deploy_files_to_root() -> bool: Deploy all mpy files in the source directory to MCU root directory, return whether all deployments are successful.
         deploy_directories_to_root() -> bool: Deploy all subdirectories in the source directory to MCU root directory, return whether all deployments are successful.
         list_remote_files() -> bool: List all files and directories in the MCU root directory, return whether the execution is successful.
 
     Notes:
         1. Depends on the mpremote tool, which must be installed and added to the system environment variables.
-        2. Only supports Windows systems; path processing automatically converts Windows-style paths to Unix-style paths compatible with MCU.
-        3. Recursive copy (-r parameter) is used when deploying directories to ensure complete synchronization of subdirectory structures.
-        4. All command executions have timeout limits (30s for files, 60s for directories) to avoid infinite blocking.
+        2. Recursive copy (-r parameter) is used when deploying directories to ensure complete synchronization of subdirectory structures.
+        3. All command executions have timeout limits (30s for files, 60s for directories) to avoid infinite blocking.
     """
 
     def __init__(
-        self, source_dir: str = "..\\build\\firmware_mpy", verbose: bool = False
+        self, source_dir: str = "../build/firmware_mpy", verbose: bool = False
     ):
         """
         初始化MPY部署器实例，完成源目录路径规范化及有效性校验。
@@ -223,121 +218,18 @@ class MPYDeployer:
             print("无效输入，使用自动选择")
             return "auto"
 
-    def deploy_files_to_root(self) -> bool:
-        """
-        将源目录下所有mpy文件部署到MCU根目录，返回部署结果状态。
-
-        若未指定设备端口，先调用select_device()获取。遍历源目录及其子目录下的所有mpy文件，
-        转换路径格式为MCU兼容的Unix风格，调用mpremote的fs cp命令部署文件，统计成功与失败数量，
-        最终返回是否所有文件均部署成功。
-
-        Returns:
-            bool: True表示所有文件部署成功，False表示存在部署失败的文件。
-
-        ==========================================
-
-        Deploy all mpy files in the source directory to the MCU root directory, return the deployment result status.
-
-        If no device port is specified, call select_device() first. Traverse all mpy files in the source directory and its subdirectories,
-        convert the path format to Unix style compatible with MCU, call the fs cp command of mpremote to deploy files, count the number of
-        successes and failures, and finally return whether all files are deployed successfully.
-
-        Returns:
-            bool: True means all files are deployed successfully, False means there are files that failed to deploy.
-        """
-        if not self.device_port:
-            self.device_port = self.select_device()
-            if not self.device_port:
-                return False
-
-        print(f"开始部署文件到设备根目录: {self.device_port}")
-
-        # 获取所有mpy文件
-        mpy_files: list[Path] = list(self.source_dir.rglob("*.mpy"))
-
-        if not mpy_files:
-            print("未找到任何.mpy文件")
-            return False
-
-        success_count = 0
-        fail_count = 0
-
-        for mpy_file in mpy_files:
-            # 计算相对于firmware_mpy目录的路径
-            rel_path = mpy_file.relative_to(self.source_dir)
-
-            # 获取文件绝对路径
-            abs_path = mpy_file.resolve()
-
-            # 将Windows路径转换为Unix风格路径
-            unix_rel_path = str(rel_path).replace("\\", "/")
-
-            # 目标路径是MCU根目录
-            remote_path = f":{unix_rel_path}"
-
-            try:
-                # 打印调试信息，包括绝对路径
-                print(f"准备部署文件:")
-                print(f"  绝对路径: {abs_path}")
-                print(f"  相对路径: {rel_path}")
-                print(f"  目标路径: {remote_path}")
-
-                # 构建mpremote命令
-                cmd = [
-                    "mpremote",
-                    "connect",
-                    self.device_port,
-                    "fs",
-                    "cp",
-                    str(mpy_file),
-                    remote_path,
-                ]
-
-                result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-
-                if result.returncode == 0:
-                    success_count += 1
-                    print(f"✓ 成功部署: {rel_path}")
-                else:
-                    fail_count += 1
-                    print(f"✗ 部署失败: {rel_path} - {result.stderr}")
-
-            except subprocess.TimeoutExpired:
-                fail_count += 1
-                print(f"✗ 部署超时: {rel_path}")
-            except Exception as e:
-                fail_count += 1
-                print(f"✗ 部署错误: {rel_path} - {e}")
-
-        # 总结报告
-        print("\n" + "=" * 50)
-        print(
-            f"部署完成: 成功 {success_count}, 失败 {fail_count}, 总计 {len(mpy_files)}"
-        )
-
-        return fail_count == 0
-
-    def deploy_directories_to_root(self) -> bool:
+    def deploy_directories_to_root(self):
         """
         将源目录下所有子目录部署到MCU根目录，返回部署结果状态。
 
-        若未指定设备端口，先调用select_device()获取。遍历源目录下的所有一级子目录，
-        转换路径格式为MCU兼容的Unix风格，调用mpremote的fs cp -r命令递归部署目录，
-        统计成功与失败数量，最终返回是否所有目录均部署成功。
-
-        Returns:
-            bool: True表示所有目录部署成功，False表示存在部署失败的目录。
+        若未指定设备端口，先调用select_device()获取。调用mpremote的fs cp -r命令递归部署目录.
 
         ==========================================
 
         Deploy all subdirectories in the source directory to the MCU root directory, return the deployment result status.
 
-        If no device port is specified, call select_device() first. Traverse all first-level subdirectories in the source directory,
-        convert the path format to Unix style compatible with MCU, call the fs cp -r command of mpremote to deploy directories recursively,
-        count the number of successes and failures, and finally return whether all directories are deployed successfully.
+        If no device port is specified, call select_device() first. call the fs cp -r command of mpremote to deploy directories recursively.
 
-        Returns:
-            bool: True means all directories are deployed successfully, False means there are directories that failed to deploy.
         """
         if not self.device_port:
             self.device_port = self.select_device()
@@ -346,37 +238,10 @@ class MPYDeployer:
 
         print(f"开始部署目录到设备根目录: {self.device_port}")
 
-        # 获取所有子目录
-        directories: list[Path] = [d for d in self.source_dir.iterdir() if d.is_dir()]
-
-        if not directories:
-            print("未找到任何子目录")
-            return False
-
-        success_count = 0
-        fail_count = 0
-
-        for directory in directories:
-            # 计算相对于firmware_mpy目录的路径
-            rel_path = directory.relative_to(self.source_dir)
-
-            # 获取目录绝对路径
-            abs_path = directory.resolve()
-
-            # 将Windows路径转换为Unix风格路径
-            unix_rel_path = str(rel_path).replace("\\", "/")
-
-            # 目标路径是MCU根目录
-            remote_path = f":{unix_rel_path}"
-
-            try:
-                # 打印调试信息，包括绝对路径
-                print(f"准备部署目录:")
-                print(f"  绝对路径: {abs_path}")
-                print(f"  相对路径: {rel_path}")
-                print(f"  目标路径: {remote_path}")
-
-                # 构建mpremote命令
+        try:
+            # 遍历目录下的所有文件和文件夹
+            for item in self.source_dir.iterdir():
+                print(f"部署: {item.name}")
                 cmd = [
                     "mpremote",
                     "connect",
@@ -384,33 +249,21 @@ class MPYDeployer:
                     "fs",
                     "cp",
                     "-r",
-                    str(directory),
-                    remote_path,
+                    str(item),
+                    ":",
                 ]
-
                 result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-
-                if result.returncode == 0:
-                    success_count += 1
-                    print(f"✓ 成功部署目录: {rel_path}")
+                if result.returncode != 0:
+                    print(f"✗ 复制 {item.name} 失败: {result.stderr}")
                 else:
-                    fail_count += 1
-                    print(f"✗ 部署目录失败: {rel_path} - {result.stderr}")
+                    print(f"✓ 已复制 {item.name}")
 
-            except subprocess.TimeoutExpired:
-                fail_count += 1
-                print(f"✗ 部署目录超时: {rel_path}")
-            except Exception as e:
-                fail_count += 1
-                print(f"✗ 部署目录错误: {rel_path} - {e}")
+            print("✓ 目录部署完成")
+            return True
 
-        # 总结报告
-        print("\n" + "=" * 50)
-        print(
-            f"目录部署完成: 成功 {success_count}, 失败 {fail_count}, 总计 {len(directories)}"
-        )
-
-        return fail_count == 0
+        except subprocess.TimeoutExpired:
+            print("✗ 部署目录超时")
+            return False
 
     def list_remote_files(self) -> bool:
         """
@@ -462,36 +315,24 @@ class MPYDeployer:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Windows专用 - 使用mpremote工具部署mpy文件到MCU根目录",
+        description="使用mpremote工具部署mpy文件到MCU根目录",
         formatter_class=argparse.RawTextHelpFormatter,
     )
 
     parser.add_argument(
         "-s",
         "--source",
-        help="源mpy文件目录，默认为.\\build\\firmware_mpy",
-        default=".\\build\\firmware_mpy",
+        help="源mpy文件目录，默认为./build/firmware_mpy",
+        default="./build/firmware_mpy",
     )
 
     parser.add_argument("-d", "--device", help="指定设备端口（如COM3），默认为自动选择")
 
     parser.add_argument("-v", "--verbose", help="显示详细输出", action="store_true")
 
-    parser.add_argument(
-        "-f", "--files", help="只部署文件到MCU根目录", action="store_true"
-    )
+    parser.add_argument("-a", "--all", help="部署所有文件和目录到MCU根目录", action="store_true")
 
-    parser.add_argument(
-        "-r", "--dirs", help="只部署目录到MCU根目录", action="store_true"
-    )
-
-    parser.add_argument(
-        "-a", "--all", help="部署所有文件和目录到MCU根目录", action="store_true"
-    )
-
-    parser.add_argument(
-        "-l", "--list", help="只列出MCU上的文件，不部署", action="store_true"
-    )
+    parser.add_argument("-l", "--list", help="只列出MCU上的文件，不部署", action="store_true")
 
     args = parser.parse_args()
 
@@ -500,37 +341,11 @@ if __name__ == "__main__":
 
         if args.device:
             deployer.device_port = args.device
-
         if args.list:
             deployer.list_remote_files()
-        elif args.files:
-            deployer.deploy_files_to_root()
-        elif args.dirs:
-            deployer.deploy_directories_to_root()
-        elif args.all:
-            # 先部署目录，再部署文件
-            print("开始部署：部署目录 -> 根目录 ...")
-            success1 = deployer.deploy_directories_to_root()
-            print("部署目录完成：", "成功" if success1 else "失败")
-
-            print("开始部署：部署文件 -> 根目录 ...")
-            success2 = deployer.deploy_files_to_root()
-            print("部署文件完成：", "成功" if success2 else "失败")
-
-            overall = success1 and success2
-            print("全部部署完成，总体结果：", "成功" if overall else "有失败")
         else:
-            # 默认行为：部署所有文件和目录
             print("开始部署：部署目录 -> 根目录 ...")
-            success1 = deployer.deploy_directories_to_root()
-            print("部署目录完成：", "成功" if success1 else "失败")
-
-            print("开始部署：部署文件 -> 根目录 ...")
-            success2 = deployer.deploy_files_to_root()
-            print("部署文件完成：", "成功" if success2 else "失败")
-
-            overall = success1 and success2
-            print("全部部署完成，总体结果：", "成功" if overall else "有失败")
+            deployer.deploy_directories_to_root()
 
     except Exception as e:
         print(f"错误: {e}")
