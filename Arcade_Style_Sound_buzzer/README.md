@@ -85,7 +85,7 @@
 │   └── scheduler/              # 任务调度器库（支持任务添加/暂停/恢复，空闲/异常回调）
 ├── drivers/                    # 硬件驱动文件夹（封装外设控制接口）
 │   ├── hall_sensor_driver.py   # 霍尔传感器驱动（提供`read_state()`方法）
-│   ├── microphone_driver.py    # 麦克风驱动（提供`read_volume()` `is_triggered()`方法）
+│   ├── max9814_mic_driver.py    # 麦克风驱动（提供`read_volume()` `is_triggered()`方法）
 │   └── passive_buzzer_driver.py# 无源蜂鸣器驱动（提供`play_tone()` `stop()`方法）
 ├── tasks/                      # 任务逻辑文件夹（业务相关实现）
 │   ├── sensor_task.py          # 核心任务模块，定义`SensorTriggerTask`类（采集→滤波→触发判断）
@@ -110,7 +110,7 @@
 
 - `drivers/`：硬件驱动模块，均采用“实例化+方法调用”模式：  
   - `hall_sensor_driver.py`：`HallSensor`类通过`Pin`读取数字信号，`read_state()`返回磁场状态（1=检测到，0=未检测到）；  
-  - `microphone_driver.py`：`Microphone`类通过`ADC`采集模拟信号，`read_volume()`返回原始值，`is_triggered(threshold)`判断是否超过阈值；  
+  - `max9814_mic_driver.py`：`Microphone`类通过`ADC`采集模拟信号，`read_volume()`返回原始值;
   - `passive_buzzer_driver.py`：`Buzzer`类通过`PWM`输出信号，`play_tone(freq, duration)`控制频率与播放时长，`stop()`终止播放。
 
 - `tasks/`：业务任务模块：  

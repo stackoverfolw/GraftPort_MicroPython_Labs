@@ -52,7 +52,7 @@
 **连接方式**：  
 1. TCS34725传感器：VCC接3.3V、GND接GND、SDA接I2C0-SDA（参考`board.py`配置）、SCL接I2C0-SCL；  
 2. 触摸按键：VCC接3.3V、GND接GND、OUT接指定GPIO（默认对应板载按键引脚）；  
-3. 蜂鸣器（可选）：VCC接3.3V、GND接GND、IN接PWM输出引脚（由任务逻辑指定）。  
+3. 蜂鸣器/LM386功放（可选）：VCC接3.3V、GND接GND、IN接PWM输出引脚（由任务逻辑指定）。  
 
 
 ## 软件环境（Software Environment）

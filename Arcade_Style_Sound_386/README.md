@@ -23,7 +23,7 @@
 
 ### 项目主要功能概览
 
-本项目基于MicroPython开发，核心功能是通过霍尔传感器实时检测磁场变化（如磁铁靠近）、麦克风采集声音信号（如拍手、敲击），经信号滤波与阈值判断后，控制无源蜂鸣器播放预设街机音效（如“投币”“击打”“胜利”等）；支持板载按键中断切换系统启停，内置自动垃圾回收（GC）避免内存泄漏，异常捕获与限速打印便于问题定位，传感器初始化重试机制提升硬件兼容性。
+本项目基于MicroPython开发，核心功能是通过霍尔传感器实时检测磁场变化（如磁铁靠近）、麦克风采集声音信号（如拍手、敲击），经信号滤波与阈值判断后，控制LM386播放预设街机音效（如“投币”“击打”“胜利”等）；支持板载按键中断切换系统启停，内置自动垃圾回收（GC）避免内存泄漏，异常捕获与限速打印便于问题定位，传感器初始化重试机制提升硬件兼容性。
 
 ### 适用场景或应用领域
 
@@ -56,11 +56,11 @@
 **连接方式：**
 
 1. **硬件连线**  
-   - **霍尔传感器模块**：通过PH2.0-3P连接线接入数字接口2（GPIO2）；  
+   - **霍尔传感器模块**：通过PH2.0-3P连接线接入数字接口；  
    board.get_dio_pins(0)[0]
-   - **麦克风模块**：通过PH2.0-3P连接线接入ADC接口0（GPIO26）；  
+   - **麦克风模块**：通过PH2.0-3P连接线接入ADC接口；  
    board.get_adc_pins(0)[0]
-   - **无源蜂鸣器模块**：通过PH2.0-3P连接线接入PWM接口0（GPIO15）；  
+   - **无源蜂鸣器模块**：通过PH2.0-3P连接线接入PWM接口；  
    board.get_dio_pins(1)[0]
 
 2. **注意事项**  
@@ -85,7 +85,7 @@
 │   └── scheduler/              # 任务调度器库（支持任务添加/暂停/恢复，空闲/异常回调）
 ├── drivers/                    # 硬件驱动文件夹（封装外设控制接口）
 │   ├── hall_sensor_driver.py   # 霍尔传感器驱动（提供`read_state()`方法）
-│   ├── microphone_driver.py    # 麦克风驱动（提供`read_volume()` `is_triggered()`方法）
+│   ├── max9814_mic_driver.py       # 麦克风驱动（提供`read_volume()` `is_triggered()`方法）
 │   └── passive_buzzer_driver.py# 无源蜂鸣器驱动（提供`play_tone()` `stop()`方法）
 ├── tasks/                      # 任务逻辑文件夹（业务相关实现）
 │   ├── sensor_task.py          # 核心任务模块，定义`SensorTriggerTask`类（采集→滤波→触发判断）
@@ -102,7 +102,7 @@
 ## 文件说明（File Description）
 
 - `main.py`：项目入口，核心逻辑包括：  
-  1. 上电延时3秒（等待硬件稳定），初始化板载LED、蜂鸣器、霍尔传感器、麦克风、按键（含中断注册）；  
+  1. 上电延时3秒（等待硬件稳定），初始化板载LED、霍尔传感器、麦克风、按键（含中断注册）；  
   2. 初始化传感器（支持多次重试，失败则调用`fatal_hang`阻塞并闪灯报错）；  
   3. 创建`SensorTriggerTask`（传感器采集，周期20ms）与`BuzzerSoundTask`（音效播放，周期50ms）实例，封装为调度器任务；  
   4. 初始化`Scheduler`（软定时器，调度周期10ms），添加任务并启动调度，进入无限循环；  
@@ -110,7 +110,7 @@
 
 - `drivers/`：硬件驱动模块，均采用“实例化+方法调用”模式：  
   - `hall_sensor_driver.py`：`HallSensor`类通过`Pin`读取数字信号，`read_state()`返回磁场状态（1=检测到，0=未检测到）；  
-  - `microphone_driver.py`：`Microphone`类通过`ADC`采集模拟信号，`read_volume()`返回原始值，`is_triggered(threshold)`判断是否超过阈值；  
+  - `max9814_mic_driver.py`：`MAX9814Mic`类通过`ADC`采集模拟信号，`read_volume()`返回原始值 ;
   - `passive_buzzer_driver.py`：`Buzzer`类通过`PWM`输出信号，`play_tone(freq, duration)`控制频率与播放时长，`stop()`终止播放。
 
 - `tasks/`：业务任务模块：  
